@@ -60,12 +60,12 @@ export default function GenerateWallet() {
 
         {
           // generated solana wallet
-          publicKeys.map(p => <div>
+          publicKeys.map((p,index) => <div key={index}>
             sol- {p.toBase58()}
           </div>)
         }
 
-        {addresses.map(p => <div>
+        {addresses.map((p,index) => <div key={index}>
           Eth - {p}
         </div>)}
 
