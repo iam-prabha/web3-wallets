@@ -17,7 +17,7 @@ export default function Navbar() {
 
 
     return (<>
-        <div className="max-w-[800px] mx-auto h-16 flex justify-between items-center">
+        <div className=" px-2 max-w-[1200px] mx-auto h-16 flex justify-between items-center">
             <h1 className="font-extrabold text-lg">Web3-wallet's</h1>
             <div>
                 <DropdownMenu>
