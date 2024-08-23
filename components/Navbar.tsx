@@ -10,14 +10,14 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-export default function Navbar() {
+const  Navbar = () => {
 
     //theme-changer
     const { setTheme } = useTheme()
 
 
     return (<>
-        <div className=" px-2 max-w-[1200px] mx-auto h-16 flex justify-between items-center">
+        <div className=" px-2 h-16 flex justify-between items-center">
             <h1 className="font-extrabold text-lg">Web3-wallet's</h1>
             <div>
                 <DropdownMenu>
@@ -46,3 +46,5 @@ export default function Navbar() {
     </>
     )
 }
+
+export default Navbar;

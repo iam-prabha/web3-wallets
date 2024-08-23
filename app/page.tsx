@@ -1,12 +1,12 @@
-import GenerateWallet from "@/components/GenerateWallets";
-import Navbar from "@/components/navbar";
-
-export default function Home() {
+import Navbar from "@/components/Navbar";
+import WalletsGenerator from "@/components/WalletsGenerator";
+const Home = () => {
 
   return (
-    <main className="min-h-screen" >
+    <main className="max-w-7xl mx-auto">
       <Navbar />
-      <GenerateWallet />
+      <WalletsGenerator />
     </main>
   );
-}
+};
+export default Home;

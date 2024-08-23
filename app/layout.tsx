@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Amiko } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "sonner";
 const amiko = Amiko({ subsets: ["latin"] , weight : '400'});
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
+            <Toaster />
           {children}
         </ThemeProvider>
       </body>
