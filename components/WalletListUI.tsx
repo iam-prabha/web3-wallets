@@ -8,7 +8,7 @@ import { Wallet } from './WalletsGenerator';
 interface WalletListUIValue {
     handleAddWallet: () => void;
     handleClearWallets: () => void;
-    handleDeleteWallet : (index : number) => void;
+    handleDeleteWallet: (index: number) => void;
     copyToClipboard: (content: string) => void;
     wallets: Wallet[];
     pathTypeName: string;
@@ -22,51 +22,51 @@ interface WalletListUIValue {
 interface WalletListUIProps {
     value: WalletListUIValue;
 }
-const WalletListUI = ({  value } : WalletListUIProps ) => {
-    const { handleAddWallet, gridView, pathTypeName, setGridView, wallets, handleClearWallets, copyToClipboard, visiblePrivateKeys, togglePrivateKeyVisibility ,handleDeleteWallet} = value;
+const WalletListUI = ({ value }: WalletListUIProps) => {
+    const { handleAddWallet, gridView, pathTypeName, setGridView, wallets, handleClearWallets, copyToClipboard, visiblePrivateKeys, togglePrivateKeyVisibility, handleDeleteWallet } = value;
     return (
         <div className="flex flex-col gap-8 mt-6">
             <div className="flex md:flex-row flex-col justify-between w-full gap-4 md:items-center">
                 <h2 className="tracking-tighter text-3xl md:text-4xl font-extrabold">
-                    {pathTypeName} Wallet
+                    Your's Wallet
                 </h2>
                 <div className="flex gap-2">
-                    {wallets.length > 1 && (
-                        <Button
-                            variant={"ghost"}
-                            onClick={() => setGridView(!gridView)}
-                            className="hidden md:block"
-                        >
-                            {gridView ? <Grid2X2 /> : <List />}
-                        </Button>
-                    )}
-                    <Button onClick={() => handleAddWallet()}>Add Wallet</Button>
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                            <Button variant="destructive" className="self-end">
-                                Clear Wallets
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                    Are you sure you want to delete all wallets?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    This action cannot be undone. This will permanently delete
-                                    your wallets and keys from local storage.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={()=> handleClearWallets()} className='text-destructive'>
-                                    Delete
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
-                </div>
+                {wallets.length > 1 && (
+                <Button
+                  variant={"ghost"}
+                  onClick={() => setGridView(!gridView)}
+                  className="hidden md:block"
+                >
+                  {gridView ? <Grid2X2 /> : <List />}
+                </Button>
+              )}
+              <Button onClick={() => handleAddWallet()}>Add Wallet</Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" className="self-end">
+                    Clear Wallets
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you sure you want to delete all wallets?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your wallets and keys from local storage.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => handleClearWallets()}>
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
+          </div>
             <div
                 className={`grid gap-6 grid-cols-1 col-span-1  ${gridView ? "md:grid-cols-2 lg:grid-cols-3" : ""
                     }`}
@@ -78,8 +78,7 @@ const WalletListUI = ({  value } : WalletListUIProps ) => {
                             className="flex flex-col rounded-2xl border border-primary/10"
                         >
                             <div className="flex justify-between px-8 py-6">
-                                <h3 className="font-bold text-2xl md:text-3xl tracking-tighter ">
-                                    Wallet {index + 1}
+                                <h3 className="font-bold text-2xl md:text-3xl tracking-tighter "> Wallet {index + 1}
                                 </h3>
                                 <AlertDialog>
                                     <AlertDialogTrigger asChild>
@@ -124,7 +123,7 @@ const WalletListUI = ({  value } : WalletListUIProps ) => {
                                         {wallet.publicKey}
                                     </p>
                                 </div>
-                                <div className="flex flex-col w-full gap-2">
+                                <div className="flex flex-col w-full gap-2 justify-center items-center">
                                     <span className="text-lg md:text-xl font-bold tracking-tighter">
                                         Private Key
                                     </span>

@@ -152,7 +152,10 @@ const WalletsGenerator = () => {
     const words = mnemonic.split(" ");
     setMnemonic(words);
 
-    const wallet = generateWalletFromMnemonic(pathTypes[0], mnemonic, wallets.length);
+    const wallet = generateWalletFromMnemonic(
+      pathTypes[0],
+      mnemonic,
+      wallets.length);
 
     if (wallet) {
       const updatedWallets = [...wallets, wallet];
@@ -163,14 +166,31 @@ const WalletsGenerator = () => {
       setVisiblePrivateKeys([...visiblePrivateKeys, false]);
       setVisiblePhrases([...visiblePhrases, false]);
       toast.success("Wallet generated successfully!");
-    };
+    }
   };
 
   const handleAddWallet = () => {
+
     if (!mnemonic) {
       toast.error("No mnemonic found. Please generate a wallet first.");
       return;
-    };
+    }
+
+    const wallet = generateWalletFromMnemonic(
+      pathTypes[0],
+      mnemonic.join(" "),
+      wallets.length
+    );
+    if (wallet) {
+      const updatedWallets = [...wallets, wallet];
+      const updatedPathType = [pathTypes, pathTypes];
+      setWallets(updatedWallets);
+      localStorage.setItem("wallets", JSON.stringify(updatedWallets));
+      localStorage.setItem("pathTypes", JSON.stringify(updatedPathType));
+      setVisiblePrivateKeys([...visiblePrivateKeys, false]);
+      setVisiblePhrases([...visiblePhrases, false]);
+      toast.success("Wallet generated successfully!");
+    }
   };
 
 
@@ -183,30 +203,23 @@ const WalletsGenerator = () => {
         break;
       case "eth":
         setPathTypes(["60"]);
-        toast.success("Wallet Ethereum was selected!")
+        toast.success("Wallet Ethereum was selected!");
         break;
-      default:
-        setPathTypes([]);
-    }
+    
+      }
     // console.log(value);
 
   }
-
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setMnemonicInput(event.target.value);
-    setMnemonicInput("");
-  }
-
   return (
 
-    <div>
+    <div className="text-center">
       <h1 className="text-2xl font-bold">We support multiple blockchain wallets</h1>
       <h3 className="py-2">Choose a blockchain to get started</h3>
-      <div className="py-2 flex items-center gap-4">
+      <div className="py-2 flex flex-col items-center gap-4 justify-center">
         <h1>Choose the blockchain Network :</h1>
         <Select onValueChange={
-          handleNetworkSelect} required={true}>
-          <SelectTrigger className="max-w-[300px]">
+          handleNetworkSelect}>
+          <SelectTrigger className="max-w-3xl">
             <SelectValue placeholder="Select a Blockchain Network" />
           </SelectTrigger>
           <SelectContent>
@@ -222,14 +235,19 @@ const WalletsGenerator = () => {
       {
         pathTypes.length !== 0 && (
 
-          <div className="sm:max-w-sm max-w-sm py-2 md:flex md:max-w-xl items-center space-x-2">
-            <Input
-              type="text"
-              placeholder="Enter your secret phrase or leave blank to generate a new one"
-              value={mnemonicInput}
-              onChange={handleOnChange}
-            />
-            <Button onClick={() => handleGenerateWallet()} className="sm:w-full md:w-[200px]">
+          <div className="max-w-3xl py-2 flex flex-col items-center justify-center mx-auto">
+            <label htmlFor="mnemonic">
+              </label>
+              <Input
+                type="text"
+                placeholder="Enter your secret phrase or leave blank to generate a new one"
+                value={mnemonicInput}
+                onChange={(e) => setMnemonicInput(e.target.value)}
+                id="mnemonic"
+              />
+            <br />
+            <Button size={"lg"}
+            onClick={() => handleGenerateWallet()}>
               {mnemonicInput ? "Add Wallet" : "Generate Wallet"}
             </Button>
           </div>

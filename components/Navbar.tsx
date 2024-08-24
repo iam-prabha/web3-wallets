@@ -17,8 +17,8 @@ const  Navbar = () => {
 
 
     return (<>
-        <div className=" px-2 h-16 flex justify-between items-center">
-            <h1 className="font-extrabold text-lg">Web3-wallet's</h1>
+        <div className="h-16 flex justify-between items-center">
+            <h1 className="font-extrabold text-3xl">Web3-wallet</h1>
             <div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
