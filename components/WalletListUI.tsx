@@ -1,9 +1,7 @@
 "use client";
-
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger } from '@radix-ui/react-alert-dialog';
 import { Button } from './ui/button';
 import { Eye, EyeOff, Grid2X2, List, Trash } from 'lucide-react';
-import { AlertDialogHeader, AlertDialogFooter } from './ui/alert-dialog';
+import {  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger,AlertDialogHeader, AlertDialogFooter } from './ui/alert-dialog';
 import { Wallet } from './WalletsGenerator';
 interface WalletListUIValue {
     handleAddWallet: () => void;
