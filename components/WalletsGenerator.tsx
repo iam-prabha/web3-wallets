@@ -22,7 +22,6 @@ import {
 import { ChevronDown, ChevronUp, Copy } from "lucide-react";
 import WalletListUI from "./WalletListUI";
 
-
 export interface Wallet {
   mnemonic: string;
   publicKey: string;
@@ -30,7 +29,6 @@ export interface Wallet {
   path: string;
 }
 const WalletsGenerator = () => {
-
   const [mnemonic, setMnemonic] = useState<string[]>(Array(12).fill(" "));
   const [pathTypes, setPathTypes] = useState<string[]>([]);
   const [wallets, setWallets] = useState<Wallet[]>([]);
@@ -155,7 +153,8 @@ const WalletsGenerator = () => {
     const wallet = generateWalletFromMnemonic(
       pathTypes[0],
       mnemonic,
-      wallets.length);
+      wallets.length
+    );
 
     if (wallet) {
       const updatedWallets = [...wallets, wallet];
@@ -170,7 +169,6 @@ const WalletsGenerator = () => {
   };
 
   const handleAddWallet = () => {
-
     if (!mnemonic) {
       toast.error("No mnemonic found. Please generate a wallet first.");
       return;
@@ -193,8 +191,6 @@ const WalletsGenerator = () => {
     }
   };
 
-
-
   const handleNetworkSelect = (value: string): void => {
     switch (value) {
       case "solana":
@@ -205,20 +201,18 @@ const WalletsGenerator = () => {
         setPathTypes(["60"]);
         toast.success("Wallet Ethereum was selected!");
         break;
-    
-      }
+    }
     // console.log(value);
-
-  }
+  };
   return (
-
     <div className="text-center">
-      <h1 className="text-2xl font-bold">We support multiple blockchain wallets</h1>
+      <h1 className="text-2xl font-bold">
+        We support multiple blockchain wallets
+      </h1>
       <h3 className="py-2">Choose a blockchain to get started</h3>
       <div className="py-2 flex flex-col items-center gap-4 justify-center">
         <h1>Choose the blockchain Network :</h1>
-        <Select onValueChange={
-          handleNetworkSelect}>
+        <Select onValueChange={handleNetworkSelect}>
           <SelectTrigger className="max-w-3xl">
             <SelectValue placeholder="Select a Blockchain Network" />
           </SelectTrigger>
@@ -232,79 +226,85 @@ const WalletsGenerator = () => {
         </Select>
       </div>
 
-      {
-        pathTypes.length !== 0 && (
-
-          <div className="max-w-3xl py-2 flex flex-col items-center justify-center mx-auto">
-            <label htmlFor="mnemonic">
-              </label>
-              <Input
-                type="text"
-                placeholder="Enter your secret phrase or leave blank to generate a new one"
-                value={mnemonicInput}
-                onChange={(e) => setMnemonicInput(e.target.value)}
-                id="mnemonic"
-              />
-            <br />
-            <Button size={"lg"}
-            onClick={() => handleGenerateWallet()}>
-              {mnemonicInput ? "Add Wallet" : "Generate Wallet"}
-            </Button>
-          </div>
-        )
-      }
+      {pathTypes.length !== 0 && (
+        <div className="max-w-3xl py-2 flex flex-col items-center justify-center mx-auto">
+          <label htmlFor="mnemonic"></label>
+          <Input
+            type="text"
+            placeholder="Enter your secret phrase or leave blank to generate a new one"
+            value={mnemonicInput}
+            onChange={(e) => setMnemonicInput(e.target.value)}
+            id="mnemonic"
+          />
+          <br />
+          <Button size={"lg"} onClick={() => handleGenerateWallet()}>
+            {mnemonicInput ? "Add Wallet" : "Generate Wallet"}
+          </Button>
+        </div>
+      )}
       <br />
-      {
-        mnemonic && wallets.length > 0 && (
-          <>
-            <div className=" group flex flex-col items-center gap-4 cursor-pointer rounded-lg border border-primary/10 p-8">
-              <div className="flex w-full justify-between items-center"
+      {mnemonic && wallets.length > 0 && (
+        <>
+          <div className=" group flex flex-col items-center gap-4 cursor-pointer rounded-lg border border-primary/10 p-8">
+            <div
+              className="flex w-full justify-between items-center"
+              onClick={() => setShowMnemonic(!showMnemonic)}
+            >
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">
+                Your Secret Phrase
+              </h2>
+              <Button
                 onClick={() => setShowMnemonic(!showMnemonic)}
+                variant="ghost"
               >
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">
-                  Your Secret Phrase
-                </h2>
-                <Button onClick={() => setShowMnemonic(!showMnemonic)} variant="ghost">
-                  {showMnemonic ? (
-                    <ChevronUp className="size-4" />
-                  ) : (
-                    <ChevronDown className="size-4" />
-                  )}
-                </Button>
+                {showMnemonic ? (
+                  <ChevronUp className="size-4" />
+                ) : (
+                  <ChevronDown className="size-4" />
+                )}
+              </Button>
+            </div>
+          </div>
+
+          {showMnemonic && (
+            <div
+              className="flex flex-col w-full items-center justify-center"
+              onClick={() => copyToClipboard(mnemonic.join(" "))}
+            >
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-center w-full items-center mx-auto my-8">
+                {mnemonic.map((word, index) => (
+                  <p
+                    key={index}
+                    className="md:text-lg bg-foreground/5 hover:bg-foreground/10 transition-all duration-300 rounded-lg p-4"
+                  >
+                    {word}
+                  </p>
+                ))}
+                <div className="text-sm md:text-base text-primary/50 flex w-full gap-2 items-center group-hover:text-primary/80 transition-all duration-300">
+                  <Copy className="size-4" /> click Anywhere to copy
+                </div>
               </div>
             </div>
-
-            {showMnemonic &&
-              (
-                <div className="flex flex-col w-full items-center justify-center"
-                  onClick={() => copyToClipboard(mnemonic.join(" "))}
-                >
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-center w-full items-center mx-auto my-8">
-                    {
-                      mnemonic.map((word, index) => <p key={index}
-                        className="md:text-lg bg-foreground/5 hover:bg-foreground/10 transition-all duration-300 rounded-lg p-4"
-                      >
-                        {word}
-                      </p>)
-                    }
-                    <div className="text-sm md:text-base text-primary/50 flex w-full gap-2 items-center group-hover:text-primary/80 transition-all duration-300">
-                      <Copy className="size-4" /> click Anywhere to copy
-                    </div>
-                  </div>
-                </div>
-              )}
-
-          </>
-        )
-      }
+          )}
+        </>
+      )}
       <br />
-      {
-        wallets.length > 0 && (
-          <WalletListUI value={{ handleAddWallet, wallets, pathTypeName, gridView, setGridView, copyToClipboard, handleClearWallets, visiblePrivateKeys, togglePrivateKeyVisibility, handleDeleteWallet }} />
-
-        )
-      }
-
+      {wallets.length > 0 && (
+        <WalletListUI
+          value={{
+            handleAddWallet,
+            wallets,
+            pathTypeName,
+            gridView,
+            setGridView,
+            copyToClipboard,
+            handleClearWallets,
+            visiblePrivateKeys,
+            togglePrivateKeyVisibility,
+            handleDeleteWallet,
+          }}
+        />
+      )}
     </div>
   );
 };
